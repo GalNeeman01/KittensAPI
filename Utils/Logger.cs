@@ -1,25 +1,18 @@
 ﻿namespace AssafFinkelshtein;
 
-public class Logger : IDisposable
+public class Logger
 {
     private readonly string _logFileName = Path.Combine("Logs", "Logger.txt");
-    private readonly StreamWriter writer;
 
     public Logger()
     {
         if (!Directory.Exists("Logs"))
             Directory.CreateDirectory("Logs");
-
-        writer = new StreamWriter(_logFileName, true);
     }
-
+    
     public async Task Log(string message)
     {
+        using StreamWriter writer = new StreamWriter(_logFileName, true);
         await writer.WriteLineAsync(DateTime.Now + ":\t" + message);
-    }
-
-    public void Dispose()
-    {
-        writer.Dispose();
     }
 }
