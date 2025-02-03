@@ -1,0 +1,31 @@
+﻿# Entire containers we're building. each service creates one container:
+services:
+  # Our kittens REST API service:
+  rest-service:    
+    # Image name to create:
+    image: truueh/kittens-image:1.0
+
+    # Build the image from the following Dockerfile location:
+    build: .
+
+    # Container name:
+    container_name: kittens-container
+
+    #Port mapping (host:container)
+    ports:
+      - 4000:8080
+
+    restart: unless-stopped
+
+    # Volumes:
+    volumes:
+    # Host-Volume
+    #- C:\course projects\Logs:/app/Logs
+    
+    # Named-Volume
+    - logs-volume:/app/Logs
+
+# ------------------------------------------------------------------------------ #
+
+volumes:
+    logs-volume:
